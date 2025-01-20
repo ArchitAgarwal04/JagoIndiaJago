@@ -47,8 +47,10 @@ const Pricing = () => {
           {plans.map((plan, index) => (
             <div
               key={index}
-              className={`${plan.popular ? "bg-neutral-900 text-white" : "bg-neutral-50"} rounded-2xl p-8 ${
-                plan.popular ? "shadow-xl transform md:-translate-y-4" : "border border-neutral-200"
+              className={`${plan.popular 
+                ? "bg-neutral-900 text-white border-2 border-green-500" 
+                : "bg-neutral-100 text-neutral-900"} rounded-2xl p-8 ${
+                plan.popular ? "shadow-xl transform md:-translate-y-4" : "shadow-md"
               } hover:shadow-xl transition duration-300`}
             >
               {plan.popular && (
@@ -77,7 +79,9 @@ const Pricing = () => {
 
               <button
                 className={`w-full py-3 ${
-                  plan.popular ? "bg-green-500 text-white" : "border-2 border-neutral-900 text-neutral-900"
+                  plan.popular 
+                    ? "bg-green-500 text-white" 
+                    : "bg-white border-2 border-neutral-900 text-neutral-900"
                 } rounded-lg font-semibold hover:bg-opacity-90 transition duration-300`}
               >
                 {plan.cta}
@@ -91,4 +95,3 @@ const Pricing = () => {
 }
 
 export default Pricing
-
