@@ -1,9 +1,13 @@
 "use client"
 
 import { useState } from "react"
-import { ArrowRight, User } from "lucide-react"
+import { X, User, Send } from "lucide-react"
 
-const AIAssistant = () => {
+interface AIAssistantProps {
+  onClose: () => void
+}
+
+const AIAssistant = ({ onClose }: AIAssistantProps) => {
   const [messages, setMessages] = useState([
     { role: "assistant", content: "Hello! How can I help you with your nutrition goals today?" },
   ])
@@ -23,56 +27,41 @@ const AIAssistant = () => {
   }
 
   return (
-    <div className="bg-neutral-800 rounded-xl overflow-hidden shadow-xl">
-      <div className="bg-neutral-900 p-4 flex items-center space-x-3">
-        <div className="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center">
-          <ArrowRight className="w-6 h-6 text-white" />
-        </div>
-        <div>
-          <h3 className="text-white font-semibold">AI Health Assistant</h3>
-          <p className="text-green-500 text-sm">Online</p>
-        </div>
-      </div>
-
-      <div className="p-4 h-96 overflow-y-auto space-y-4">
-        {messages.map((message, index) => (
-          <div key={index} className={`flex items-start space-x-3 ${message.role === "user" ? "justify-end" : ""}`}>
-            {message.role === "assistant" && (
-              <div className="w-8 h-8 bg-green-500 rounded-full flex-shrink-0 flex items-center justify-center">
-                <ArrowRight className="w-4 h-4 text-white" />
-              </div>
-            )}
-            <div
-              className={`rounded-lg p-3 max-w-xs ${message.role === "user" ? "bg-green-500 text-white" : "bg-neutral-700 text-white"}`}
-            >
-              <p>{message.content}</p>
-            </div>
-            {message.role === "user" && (
-              <div className="w-8 h-8 bg-blue-500 rounded-full flex-shrink-0 flex items-center justify-center">
-                <User className="w-4 h-4 text-white" />
-              </div>
-            )}
-          </div>
-        ))}
-      </div>
-
-      <form onSubmit={handleSubmit} className="p-4 border-t border-neutral-700">
-        <div className="flex space-x-3">
-          <input
-            type="text"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            placeholder="Ask about nutrition, meals, or products..."
-            className="flex-1 p-2 bg-neutral-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-green-500"
-          />
-          <button
-            type="submit"
-            className="bg-green-500 text-white p-2 rounded-lg hover:bg-green-600 transition duration-300"
-          >
-            <ArrowRight className="w-6 h-6" />
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+      <div className="bg-neutral-800 w-full max-w-md rounded-lg shadow-xl overflow-hidden">
+        <div className="bg-neutral-900 p-4 flex justify-between items-center">
+          <h2 className="text-white text-lg font-semibold">AI Assistant</h2>
+          <button onClick={onClose} className="text-gray-400 hover:text-white">
+            <X className="h-6 w-6" />
           </button>
         </div>
-      </form>
+        <div className="h-96 overflow-y-auto p-4 space-y-4">
+          {messages.map((message, index) => (
+            <div key={index} className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}>
+              <div className={`max-w-xs ${message.role === "user" ? "bg-green-600" : "bg-neutral-700"} rounded-lg p-3`}>
+                <p className="text-white">{message.content}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+        <form onSubmit={handleSubmit} className="p-4 border-t border-neutral-700">
+          <div className="flex space-x-2">
+            <input
+              type="text"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              placeholder="Type your message..."
+              className="flex-1 bg-neutral-700 text-white rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
+            />
+            <button
+              type="submit"
+              className="bg-green-600 text-white rounded-lg px-4 py-2 hover:bg-green-700 transition duration-300"
+            >
+              <Send className="h-5 w-5" />
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   )
 }
