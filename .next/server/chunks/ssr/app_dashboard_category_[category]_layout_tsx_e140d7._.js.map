@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": [],
-  "sections": [
-    {"offset": {"line": 7, "column": 0}, "map": {"version":3,"sources":["file://C%3A/Users/archi/Desktop/JaagoIndiaJaago/jaago-india-jaago/app/dashboard/category/%5Bcategory%5D/layout.tsx"],"sourcesContent":["export default function CategoryLayout({\r\n    children,\r\n  }: {\r\n    children: React.ReactNode\r\n  }) {\r\n    return <div className=\"flex-1 bg-neutral-900\">{children}</div>\r\n  }\r\n  \r\n  "],"names":[],"mappings":";;;;;AAAe,SAAS,eAAe,EACnC,QAAQ,EAGT;IACC,qBAAO,8OAAC;QAAI,WAAU;kBAAyB;;;;;;AACjD"}},
-    {"offset": {"line": 22, "column": 0}, "map": {"version":3,"sources":[],"names":[],"mappings":"A"}}]
-}
