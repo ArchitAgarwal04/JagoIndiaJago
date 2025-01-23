@@ -1,0 +1,12 @@
+{
+    "barcode": "123456789",
+    "name": "Low-fat Milk",
+    "brand": "Brand A",
+    "category": "Dairy",
+    "calories": 42,
+    "fat": 0.5,
+    "protein": 3.4,
+    "carbs": 5,
+    "sugar": 5,
+    "ingredients": "Milk, Vitamin D"
+  }
