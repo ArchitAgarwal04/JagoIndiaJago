@@ -1,14 +1,15 @@
 "use client"
 
 import Link from "next/link"
+import { Apple, Milk, CroissantIcon as Bread, Cookie, Coffee, SprayCanIcon as Spray } from "lucide-react"
 
 const categories = [
-  { name: "Fruits & Vegetables", image: "/placeholder.svg?height=100&width=100" },
-  { name: "Dairy & Eggs", image: "/placeholder.svg?height=100&width=100" },
-  { name: "Bakery", image: "/placeholder.svg?height=100&width=100" },
-  { name: "Snacks", image: "/placeholder.svg?height=100&width=100" },
-  { name: "Beverages", image: "/placeholder.svg?height=100&width=100" },
-  { name: "Personal Care", image: "/placeholder.svg?height=100&width=100" },
+  { name: "Fruits & Vegetables", image: Apple },
+  { name: "Dairy & Eggs", image: Milk },
+  { name: "Bakery", image: Bread },
+  { name: "Snacks", image: Cookie },
+  { name: "Beverages", image: Coffee },
+  { name: "Personal Care", image: Spray },
 ]
 
 const ProductCategories = () => {
@@ -18,14 +19,10 @@ const ProductCategories = () => {
         <Link
           key={category.name}
           href={`/dashboard/category/${category.name.toLowerCase().replace(/ & /g, "-")}`}
-          className="bg-neutral-700 p-4 rounded-lg hover:bg-neutral-600 transition duration-300"
+          className="bg-white bg-opacity-20 p-6 rounded-xl hover:bg-opacity-30 transition duration-300 flex flex-col items-center justify-center text-center"
         >
-          <img
-            src={category.image || "/placeholder.svg"}
-            alt={category.name}
-            className="w-full h-24 object-cover rounded-md mb-2"
-          />
-          <h3 className="text-white font-medium text-center text-sm">{category.name}</h3>
+          <category.image className="w-12 h-12 text-green-400 mb-4" />
+          <h3 className="text-white font-medium">{category.name}</h3>
         </Link>
       ))}
     </div>
