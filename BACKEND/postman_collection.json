@@ -1,0 +1,77 @@
+{
+    "info": {
+      "name": "JagoIndiaJago API",
+      "description": "Collection for testing JagoIndiaJago backend API",
+      "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+      {
+        "name": "Signup",
+        "request": {
+          "method": "POST",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "url": {
+            "raw": "http://localhost:3001/api/auth/signup",
+            "protocol": "http",
+            "host": ["localhost"],
+            "port": "3001",
+            "path": ["api", "auth", "signup"]
+          },
+          "body": {
+            "mode": "raw",
+            "raw": "{\n    \"email\": \"john.doe@example.com\",\n    \"name\": \"John Doe\",\n    \"age\": 30,\n    \"gender\": \"Male\",\n    \"height\": 175,\n    \"weight\": 70,\n    \"activity_level\": \"Active\"\n}"
+          }
+        },
+        "response": []
+      },
+      {
+        "name": "Login",
+        "request": {
+          "method": "POST",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "url": {
+            "raw": "http://localhost:3001/api/auth/login",
+            "protocol": "http",
+            "host": ["localhost"],
+            "port": "3001",
+            "path": ["api", "auth", "login"]
+          },
+          "body": {
+            "mode": "raw",
+            "raw": "{\n    \"sessionId\": \"your_session_id_here\"\n}"
+          }
+        },
+        "response": []
+      },
+      {
+        "name": "Get Protected Route",
+        "request": {
+          "method": "GET",
+          "header": [
+            {
+              "key": "Authorization",
+              "value": "Bearer {{session_token}}"
+            }
+          ],
+          "url": {
+            "raw": "http://localhost:3001/api/protected",
+            "protocol": "http",
+            "host": ["localhost"],
+            "port": "3001",
+            "path": ["api", "protected"]
+          }
+        },
+        "response": []
+      }
+    ]
+  }
