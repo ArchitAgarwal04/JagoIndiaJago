@@ -1,0 +1,10 @@
+// filepath: /d:/Projects/JagoIndiaJago/backend/src/app.js
+const express = require('express');
+const app = express();
+const bodyParser = require('body-parser');
+const cors = require('cors');
+
+app.use(bodyParser.json());
+app.use(cors());
+
+module.exports = app;
