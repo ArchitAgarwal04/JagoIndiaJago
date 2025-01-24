@@ -1,3 +1,5 @@
+// filepath: /d:/Projects/JagoIndiaJago/BACKEND/src/app.js
+
 import express from 'express';
 import cors from 'cors';
 import morgan from 'morgan';
@@ -6,10 +8,6 @@ import setupClerkMiddleware from './config/clerk.js';
 import signupRoute from './api/auth/signup.js';
 import loginRoute from './api/auth/login.js';
 import authMiddleware from './middlewares/authMiddleware.js';
-// Import other routes as needed
-// import productRoutes from './api/products/index.js';
-// import userRoutes from './api/users/index.js';
-// ...
 
 dotenv.config();
 
@@ -34,11 +32,6 @@ app.use(authMiddleware);
 app.get('/api/protected', (req, res) => {
   res.json({ message: 'This is a protected route.', user: req.auth });
 });
-
-// Define other protected routes here
-// app.use('/api/products', productRoutes);
-// app.use('/api/users', userRoutes);
-// ...
 
 // Global Error Handler
 app.use((err, req, res, next) => {
