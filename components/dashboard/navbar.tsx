@@ -1,8 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { Search, User, QrCode } from "lucide-react";
+import { Search, QrCode, LogIn } from "lucide-react";
 import ProfileDetails from "./profile-details";
+import { SignInButton, UserButton, useUser } from "@clerk/nextjs";
+import { Button } from "../ui/button";
 
 const Navbar = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -17,9 +19,12 @@ const Navbar = () => {
     console.log("Opening QR code scanner");
   };
 
+  const { user } = useUser();
+
   return (
     <nav className="bg-white bg-neutral-900 bg-opacity-10 backdrop-filter border-b border-gray-200 border-opacity-20 p-4 relative z-50">
       <div className="flex flex-col md:flex-row items-center justify-between">
+        {/* Search Input */}
         <form
           onSubmit={handleSearch}
           className="w-full md:w-auto mb-4 md:mb-0 md:mr-4"
@@ -42,16 +47,30 @@ const Navbar = () => {
             </button>
           </div>
         </form>
-        <button
-          onClick={() => setShowProfile(!showProfile)}
-          className="bg-green-600 hover:bg-green-700 text-white p-2 rounded-full transition duration-300"
-        >
-          <User />
-        </button>
+
+        {/* User Authentication Section */}
+        {!user ? (
+          <SignInButton forceRedirectUrl="/dashboard">
+            <Button
+              variant="secondary"
+              className="flex items-center gap-2 font-bold text-foreground"
+            >
+              <LogIn className="h-5 w-5" />
+              Sign In
+            </Button>
+          </SignInButton>
+        ) : (
+          <UserButton
+          appearance={{
+            elements: {
+              userButtonBox:
+                "w-12 h-12 rounded-full border-2 border-blue-600 shadow-md hover:shadow-lg transition-all duration-200 flex items-center justify-center bg-white text-blue-600 hover:bg-blue-100"
+            }
+          }}
+        />
+        
+        )}
       </div>
-      {showProfile && (
-          <ProfileDetails onClose={() => setShowProfile(false)} />
-      )}
     </nav>
   );
 };

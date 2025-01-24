@@ -1,19 +1,36 @@
+'use client'
+
 import Link from "next/link"
 import { ArrowRight } from "lucide-react"
+import { Button } from "./ui/button"
+import { LogIn } from 'lucide-react';
+import { SignInButton, UserButton, useUser } from '@clerk/nextjs';
 
 const LandingPage = () => {
+  const { user } = useUser();
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-neutral-900 via-neutral-800 to-green-900 text-white">
       <header className="p-5">
         <nav className="flex justify-between items-center max-w-7xl mx-auto">
           <div className="text-2xl font-bold">JagoIndiaJago</div>
           <div className="space-x-4">
-            <Link href="/auth/signin" className="hover:text-green-500 transition-colors">
-              Sign In
+          {user && (
+          <Button asChild variant={'link'}>
+            <Link href={'/dashboard'} className='text-lg'>
+              Dashboard
             </Link>
-            <Link href="/auth/signup" className="bg-green-600 hover:bg-green-700 px-4 py-2 rounded-lg transition-colors">
-              Sign Up
-            </Link>
+          </Button>
+        )}
+        {user && <UserButton/>}
+        {!user && (
+          <Button
+            variant={'secondary'}
+            className="flex items-center gap-2 font-bold text-foreground">
+            <LogIn className="h-5 w-5" />
+            <SignInButton forceRedirectUrl="/dashboard" mode='modal' />
+          </Button>
+        )}
           </div>
         </nav>
       </header>
@@ -29,7 +46,7 @@ const LandingPage = () => {
           </p>
           <div className="flex justify-center space-x-4">
             <Link
-              href="/auth/signup"
+              href="/sign-up"
               className="bg-green-600 hover:bg-green-700 px-8 py-3 rounded-lg font-semibold inline-flex items-center animate-pulse"
             >
               Get Started Free

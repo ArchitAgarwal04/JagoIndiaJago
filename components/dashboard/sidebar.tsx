@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation"
 import { Home, Calculator, HelpCircle, LogOut, MessageSquare, Menu } from "lucide-react"
 import { useState } from "react"
 import AIAssistant from "./ai-assistant"
+import { SignOutButton } from "@clerk/nextjs"
 
 const Sidebar = () => {
   const pathname = usePathname()
@@ -59,10 +60,11 @@ const Sidebar = () => {
         </nav>
 
         <div className="absolute bottom-0 w-full p-4">
-          <Link href="/" className="flex items-center space-x-2 text-gray-300 hover:text-white transition duration-200">
-            <LogOut className="h-5 w-5" />
-            <span>Logout</span>
-          </Link>
+          <div className="flex items-center space-x-2 text-gray-300 hover:text-white transition duration-200">
+            <SignOutButton>
+              <button>Logout</button>
+            </SignOutButton>
+          </div>
         </div>
       </div>
       {showAIAssistant && <AIAssistant onClose={() => setShowAIAssistant(false)} />}

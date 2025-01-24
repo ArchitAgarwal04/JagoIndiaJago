@@ -1,6 +1,12 @@
-import Link from "next/link"
+'use client'
+import Link from "next/link";
+import { Button } from "./ui/button";
+import { LogIn } from "lucide-react";
+import { SignInButton, UserButton, useUser } from "@clerk/nextjs";
 
 const Hero = () => {
+  const { user } = useUser();
+
   return (
     <section
       id="hero"
@@ -10,12 +16,32 @@ const Hero = () => {
         <nav className="flex justify-between items-center mb-16">
           <div className="text-2xl font-bold">JagoIndiaJago</div>
           <div className="space-x-4">
-            <Link href="/auth/signin" className="text-white hover:text-green-500 transition-colors">
-              Sign In
-            </Link>
-            <Link href="/auth/signup" className="bg-green-600 hover:bg-green-700 px-4 py-2 rounded-lg transition-colors">
-              Sign Up
-            </Link>
+            {user && (
+              <Button asChild variant={"link"}>
+                <Link href={"/dashboard"} className="text-xl font-semibold text-yellow-100 hover:underline">
+                  Dashboard
+                </Link>
+              </Button>
+            )}
+            {user && <UserButton
+              appearance={{
+                elements: {
+                  userButtonBox:
+                    "w-12 h-12 rounded-full border-2 border-blue-600 shadow-md hover:shadow-lg transition-all duration-200 flex items-center justify-center bg-white text-blue-600 hover:bg-blue-100"
+                }
+              }}
+            />
+            }
+            {!user && (
+              <SignInButton mode="modal" forceRedirectUrl="/dashboard">
+                <Button
+                  className="text-white hover:text-green-500 transition-colors py-6 text-xl"
+                >
+                  <LogIn className="h-5 w-5" />
+                  Sign In
+                </Button>
+              </SignInButton>
+            )}
           </div>
         </nav>
         <div className="grid md:grid-cols-2 gap-8 items-center min-h-[calc(100vh-10rem)]">
@@ -26,15 +52,24 @@ const Hero = () => {
               Healthier Choices
             </h1>
             <p className="text-xl text-gray-300">
-              Your AI-powered companion for making informed decisions about food, groceries, and personal care products.
+              Your AI-powered companion for making informed decisions about
+              food, groceries, and personal care products.
             </p>
             <div className="flex flex-wrap gap-4">
-              <Link
-                href="#features"
-                className="bg-green-600 hover:bg-green-700 px-8 py-3 rounded-lg font-semibold inline-flex items-center"
-              >
-                Get Started Free
-              </Link>
+            {user ? (
+            <Button asChild>
+              <Button className='bg-green-600 hover:bg-green-700 px-8 py-6 rounded-lg font-semibold inline-flex items-center'>
+                Dashboard
+              </Button>
+            </Button>
+          ) : (
+            <SignInButton mode="modal" forceRedirectUrl="/dashboard">
+            <Button className='bg-green-600 hover:bg-green-700 px-8 py-6 rounded-lg font-semibold inline-flex items-center'>
+                Get Started
+            </Button>
+            </SignInButton>
+          )}
+              
               <Link
                 href="#"
                 className="border border-white hover:bg-white hover:text-neutral-900 px-8 py-3 rounded-lg font-semibold transition duration-300"
@@ -51,7 +86,9 @@ const Hero = () => {
                   <span className="text-sm">⭐</span>
                 </div>
               </div>
-              <p className="text-gray-300">Trusted by 5000+ users with 4.8/5 rating</p>
+              <p className="text-gray-300">
+                Trusted by 5000+ users with 4.8/5 rating
+              </p>
             </div>
           </div>
 
@@ -60,7 +97,12 @@ const Hero = () => {
               <div className="bg-neutral-800/80 backdrop-blur-sm rounded-xl p-6 shadow-2xl">
                 <div className="flex items-center gap-4 mb-6">
                   <div className="w-12 h-12 bg-green-600 rounded-full flex items-center justify-center">
-                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg
+                      className="w-6 h-6 text-white"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
                       <path
                         strokeLinecap="round"
                         strokeLinejoin="round"
@@ -98,8 +140,7 @@ const Hero = () => {
         </div>
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default Hero
-
+export default Hero;
