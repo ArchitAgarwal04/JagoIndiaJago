@@ -1,5 +1,3 @@
-// filepath: /d:/Projects/JagoIndiaJago/BACKEND/src/app.js
-
 import express from 'express';
 import cors from 'cors';
 import morgan from 'morgan';
@@ -7,6 +5,7 @@ import dotenv from 'dotenv';
 import setupClerkMiddleware from './config/clerk.js';
 import signupRoute from './api/auth/signup.js';
 import loginRoute from './api/auth/login.js';
+import createProfileRoute from './api/auth/createProfile.js';
 import authMiddleware from './middlewares/authMiddleware.js';
 
 dotenv.config();
@@ -24,6 +23,7 @@ app.use(setupClerkMiddleware());
 // Public Routes
 app.use('/api/auth', signupRoute);
 app.use('/api/auth', loginRoute);
+app.use('/api/auth', createProfileRoute);
 
 // Protected Routes Middleware
 app.use(authMiddleware);
