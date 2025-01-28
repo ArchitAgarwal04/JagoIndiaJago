@@ -5,14 +5,23 @@ import { Search, QrCode, LogIn } from "lucide-react";
 import ProfileDetails from "./profile-details";
 import { SignInButton, UserButton, useUser } from "@clerk/nextjs";
 import { Button } from "../ui/button";
+import { useRouter } from 'next/navigation';
 
 const Navbar = () => {
+  const router = useRouter();
   const [searchQuery, setSearchQuery] = useState("");
   const [showProfile, setShowProfile] = useState(false);
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Searching for:", searchQuery);
+    const query = searchQuery.trim();
+    
+    // Check if input is a barcode (8-13 digits)
+    if (/^\d{8,13}$/.test(query)) {
+      router.push(`/dashboard/product/${query}`);
+    } else {
+      router.push(`/dashboard/search?q=${encodeURIComponent(query)}`);
+    }
   };
 
   const handleScan = () => {
@@ -32,18 +41,17 @@ const Navbar = () => {
           <div className="relative flex items-center">
             <input
               type="text"
-              placeholder="Search for products..."
+              placeholder="Enter product barcode or search term..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full md:w-96 bg-white bg-opacity-20 text-white rounded-l-lg pl-10 pr-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500 transition duration-200"
             />
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
             <button
-              type="button"
-              onClick={handleScan}
-              className="bg-green-600 hover:bg-green-700 text-white px-3 py-2 rounded-r-lg transition duration-300 h-full"
+              type="submit"
+              className="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-r-lg transition duration-300"
             >
-              <QrCode className="h-5 w-5" />
+              Search
             </button>
           </div>
         </form>
